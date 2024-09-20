@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trade Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Stock Trade Tracker</h1>
+        <p>Manage Traders, Stocks, and Trades with ease</p>
+    </header>
+    <main>
+        <section class="form-container">
+            <h2>Create Trader</h2>
+            <form id="trader-form" autocomplete="off">
+                <label for="name">Trader Name:</label>
+                <input type="text" id="name" name="name" required>
+                <button type="submit">Create Trader</button>
+            </form>
+        </section>
+        <section class="form-container">
+            <h2>Create Stock</h2>
+            <form id="stock-form" autocomplete="off">
+                <label for="symbol">Stock Symbol:</label>
+                <input type="text" id="symbol" name="symbol" required>
+                <label for="stockName">Stock Name:</label>
+                <input type="text" id="stockName" name="name" required>
+                <button type="submit">Create Stock</button>
+            </form>
+        </section>
+        <section class="form-container">
+            <h2>Create Trade</h2>
+            <form id="tradeForm">
+                <input type="text" id="trader_id" placeholder="Trader ID" required />
+                <input type="text" id="stock_id" placeholder="Stock ID" required />
+                <input type="number" id="amount" placeholder="Amount" required />
+                <input type="number" id="price" placeholder="Price" required />
+                <button type="submit">Create Trade</button>
+            </form>
+            
+        </section>
+        <div id="status-message"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
