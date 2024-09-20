@@ -157,21 +157,27 @@ def delete_all_trades():
     session.close()
 
 @cli.command()
+@click.argument('trade_id', type=int)
 @click.argument('trader_id', type=int)
-@click.argument('name')
-def update_trader(trader_id, name):
-    """Update an existing trader's name"""
+@click.argument('stock_id', type=int)
+@click.argument('amount', type=float)
+@click.argument('price', type=float)
+def update_trade(trade_id, trader_id, stock_id, amount, price):
+    """Update a trade"""
     session = SessionLocal()
-    trader = session.query(Trader).filter(Trader.id == trader_id).first()
-    
-    if trader:
-        trader.name = name
-        session.commit()
-        click.echo(f"Trader updated: {trader}")
-    else:
-        click.echo("Trader not found.")
-    
-    session.close()
+    try:
+        trade = session.query(Trade).get(trade_id)
+        if trade:
+            trade.trader_id = trader_id
+            trade.stock_id = stock_id
+            trade.amount = amount
+            trade.price = price
+            session.commit()
+            click.echo(f"Trade updated: {trade}")
+        else:
+            click.echo(f"No trade found with id {trade_id}")
+    finally:
+        session.close()
 
 @cli.command()
 @click.argument('stock_id', type=int)
@@ -193,23 +199,21 @@ def update_stock(stock_id, symbol, name):
     session.close()
 
 @cli.command()
-@click.argument('trade_id', type=int)
-@click.argument('amount', type=float)
-@click.argument('price', type=float)
-def update_trade(trade_id, amount, price):
-    """Update an existing trade's amount and price"""
+@click.argument('trader_id', type=int)
+@click.argument('name')
+def update_trader(trader_id, name):
+    """Update a trader's name"""
     session = SessionLocal()
-    trade = session.query(Trade).filter(Trade.id == trade_id).first()
-    
-    if trade:
-        trade.amount = amount
-        trade.price = price
-        session.commit()
-        click.echo(f"Trade updated: {trade}")
-    else:
-        click.echo("Trade not found.")
-    
-    session.close()
+    try:
+        trader = session.query(Trader).get(trader_id)
+        if trader:
+            trader.name = name
+            session.commit()
+            click.echo(f"Trader updated: {trader}")
+        else:
+            click.echo(f"No trader found with id {trader_id}")
+    finally:
+        session.close()
 
 
 if __name__ == "__main__":
